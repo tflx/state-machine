@@ -1,5 +1,7 @@
 # State Machine
 
+Based on https://css-tricks.com/build-a-state-management-system-with-vanilla-javascript/
+
 
 ## Publish state change
 ```javascript
