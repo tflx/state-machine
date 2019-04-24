@@ -5,7 +5,7 @@ export default class Store {
     private actions: any;
     private mutations: any;
     public state: any;
-    private status: {};
+    private status: string;
 
     constructor(params: any) {
         let self = this;
