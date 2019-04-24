@@ -2,8 +2,6 @@ export default class Store {
     constructor(params) {
         const self = this;
 
-        console.log('STORE');
-
         // Add some default objects to hold our actions, mutations and state
         self.actions = {};
         self.mutations = {};
@@ -28,8 +26,8 @@ export default class Store {
         // Set our state to be a Proxy. We are setting the default state by
         // checking the params and defaulting to an empty object if no default
         // state is passed in
-        self.state = new Proxy((params.initialState || {}), {
-            set: function (state, key, value) {
+        self.state = new Proxy((params.state || {}), {
+            set(state, key, value) {
 
                 // Set the value as we would normally
                 state[key] = value;
@@ -70,9 +68,7 @@ export default class Store {
         self.status = 'action';
 
         // Actually call the action and pass it the Store context and whatever payload was passed
-        self.actions[actionKey](self, payload);
-
-        return true;
+        return self.actions[actionKey](self, payload);
     }
 
     /**
@@ -90,7 +86,7 @@ export default class Store {
         // Run a quick check to see if this mutation actually exists
         // before trying to run it
         if (typeof self.mutations[mutationKey] !== 'function') {
-            console.log(`Mutation "${mutationKey}" doesn't exist`);
+            console.error(`Mutation "${mutationKey}" doesn't exist`);
             return false;
         }
 
@@ -100,10 +96,9 @@ export default class Store {
         // Get a new version of the state by running the mutation and storing the result of it
         let newState = self.mutations[mutationKey](self.state, payload);
 
-        // Merge the old and new together to create a new state and set it
-        self.state = Object.assign(self.state, newState);
+        // Update the old state with the new state returned from our mutation
         // self.state = newState;
-        console.log(self.state);
+        self.state = Object.assign(self.state, newState);
 
         return true;
     }
@@ -118,9 +113,6 @@ export default class Store {
      */
     processCallbacks(data) {
         const self = this;
-
-        console.log('process');
-        console.log(self.callbacks);
 
         if (!self.callbacks.length) {
             return false;
@@ -147,10 +139,8 @@ export default class Store {
             return false;
         }
 
-
         // A valid function, so it belongs in our collection
         self.callbacks.push(callback);
-        console.log(self.callbacks);
 
         return true;
     }

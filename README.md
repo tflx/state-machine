@@ -18,7 +18,7 @@ import store from './store/index.js';
 
 
 constructor() {
-    store.events.subscribe('stateChange', () => this.render());
+    store.subscribe('stateChange', () => this.render());
   }
 
   render = () => {
