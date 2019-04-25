@@ -15,7 +15,6 @@
   },
   "keywords": [
     "js",
-    "typescript",
     "state",
     "simple"
   ],
@@ -24,8 +23,5 @@
   "bugs": {
     "url": "https://github.com/tflx/state-machine/issues"
   },
-  "homepage": "https://github.com/tflx/state-machine#readme",
-  "devDependencies": {
-    "typescript": "^3.4.5"
-  }
+  "homepage": "https://github.com/tflx/state-machine#readme"
 }
